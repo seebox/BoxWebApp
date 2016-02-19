@@ -14,18 +14,13 @@ export class CounterStore extends FmkStore {
     };
   }
 
-  $global(state, action) {
-    state.count++;
-    console.log('CounterStore: global action');
-    return state;
+  $$(startingState, action) {
+    startingState.count++;
+    return startingState;
   }
 
-  bindViewAction(){
-    
-  }
-
-  $news$cheat(state, action) {
-    state.count = state.count * action.times;
-    return state;
+  $news$cheat(startingState, action) {
+    startingState.count = startingState.count * action.times;
+    return startingState;
   }
 }

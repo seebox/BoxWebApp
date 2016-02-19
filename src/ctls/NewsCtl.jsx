@@ -10,31 +10,17 @@ import {CounterStore} from 'stores/CounterStore';
 export class NewsCtl extends FmkCtl {
   onShow() {
     //fire global (re)loading action
-    console.log('NewsCtl onShow');
     Fmk.act();
   }
 
   onExit() {}
 
   render() {
-    return (<News counter={this.state.CounterStore} news={this.state.NewsStore}/>);
+    return (<News counter={this.state.counter} news={this.state.news}/>);
   }
 
   bindStoreEvent(binder) {
-    binder(Fmk.store(NewsStore));
-    binder(Fmk.store(CounterStore));
-    console.log('NewsCtl bindStore');
+    binder('news', Fmk.store(NewsStore));
+    binder('counter', Fmk.store(CounterStore));
   }
-
-  // news_changed(newsStore) {
-  //   this.setState(function(previousState, currentProps) {
-  //     return {news: newsStore.getState()};
-  //   });
-  // }
-  //
-  // counter_changed(counterStore) {
-  //   this.setState(function(previousState, currentProps) {
-  //     return {counter: counterStore.getState()};
-  //   });
-  // }
 }

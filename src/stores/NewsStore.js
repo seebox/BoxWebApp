@@ -14,12 +14,7 @@ export class NewsStore extends FmkStore {
     };
   }
 
-  $global(state, action) {
-    console.log('NewsStore: global action');
-    this.loadNews();
-  }
-
-  loadNews() {
+  $$(startingState, action) {
     request
       .get('/dsapi/')
       .set('Accept', 'application/json')

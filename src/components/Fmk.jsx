@@ -4,7 +4,6 @@ import {EventEmitter} from 'fbemitter';
 import {Navi} from 'components/Navi';
 
 const _dispatcher = new Dispatcher();
-const _stores = {};
 
 //For IE9 supporting
 if (Function.prototype.name === undefined && Object.defineProperty !== undefined) {
@@ -12,9 +11,7 @@ if (Function.prototype.name === undefined && Object.defineProperty !== undefined
     get: function() {
       var funcNameRegex = /function\s+([^\s(]+)\s*\(/;
       var results = (funcNameRegex).exec((this).toString());
-      return (results && results.length > 1)
-        ? results[1]
-        : "";
+      return ((results && results.length > 1)? results[1]: "");
     },
     set: function(value) {}
   });
@@ -30,9 +27,8 @@ export class Fmk {
   }
 
   static act(action = {
-    type: 'global'
+    type: '$'
   }) {
-    console.log('Fmk act: '+JSON.stringify(action));
     _dispatcher.dispatch(action);
   }
 
@@ -51,18 +47,17 @@ export class Fmk {
     } else {
       store._iehacked = false;
     }
-    console.log(store.__className + ' hacked? ' + store._iehacked);
     return store;
   }
 
   static store(storeClass, singleton = true) {
     if (singleton) {
-      if (!(_stores[storeClass.name])) {
+      if (storeClass.singletonInstance === undefined || storeClass.singletonInstance === null) {
         let sto = Fmk.iehack(new storeClass(_dispatcher));
         sto._isSingleton = true;
-        _stores[storeClass.name] = sto;
+        storeClass.singletonInstance = sto;
       }
-      return _stores[storeClass.name];
+      return storeClass.singletonInstance;
     } else {
       let sto = Fmk.iehack(new storeClass(_dispatcher));
       sto._isSingleton = false;

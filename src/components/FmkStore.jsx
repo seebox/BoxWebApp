@@ -8,8 +8,12 @@ export class FmkStore extends ReduceStore {
     if (typeof this.getInitialState !== "function") {
       throw new TypeError("Store Class [" + this.constructor.name + "] Must override method: getInitialState(){...}");
     }
+    // if (typeof this.onAction !== "function") {
+    //   throw new TypeError("Store Class [" + this.constructor.name + "] Must override method: onAction(startingState, action){...}");
+    // }
     this.changeState = this.changeState.bind(this);
-    // this.reduce = this.reduce.bind(this);
+    this.reduce = this.reduce.bind(this);
+    // this.onAction = this.onAction.bind(this);
   }
 
   changeState(newState) {
@@ -21,9 +25,8 @@ export class FmkStore extends ReduceStore {
 
   //响应action，执行数据操作
   reduce(startingState, action) {
-    if (typeof this['$' + action.type] === "function") {
-      let fn = '$' + action.type;
-      let endingState = this[fn](startingState, action);
+    if (typeof this['$' + action.type] === 'function') {
+      let endingState = this['$' + action.type](startingState, action);
       if (endingState !== undefined) {
         return {
           ...endingState

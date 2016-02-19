@@ -13,21 +13,22 @@ export class FmkCtl extends Component {
   }
 
   componentDidMount() {
-    console.log('FmkCtl componentDidMount');
+    let defaultListenerFn = function(store) {
+      this.setState(function(previousState, currentProps) {
+        let newState = {};
+        newState[store.bindingName] = store.getState();
+        return newState;
+      });
+    };
+
     if (typeof this.bindStoreEvent === "function") {
-      this.bindStoreEvent(function(store, listener) {
+      this.bindStoreEvent(function(bindingName, store, listener) {
+        store.bindingName = bindingName;
         if (listener === undefined) {
-          listener = function(newStore) {
-            this.setState(function(previousState, currentProps) {
-              let newState = {};
-              newState[newStore.constructor.name] = newStore.getState();
-              return newState;
-            });
-          }.bind(this);
+          listener = defaultListenerFn;
         }
-        listener = listener.bind(this, store);
-        this.listeners.push(store.addListener(listener));
-        this.state[store.constructor.name] = store.getInitialState();
+        this.listeners.push(store.addListener(listener.bind(this, store)));
+        this.state[store.bindingName] = store.getInitialState();
       }.bind(this));
     } else {
       throw new TypeError("Controller Class [" + this.constructor.name + "] Must override method: bindStoreEvent(binder){...}");
