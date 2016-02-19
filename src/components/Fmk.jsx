@@ -8,14 +8,16 @@ const _stores = {};
 
 //For IE9 supporting
 if (Function.prototype.name === undefined && Object.defineProperty !== undefined) {
-    Object.defineProperty(Function.prototype, 'name', {
-        get: function() {
-            var funcNameRegex = /function\s+([^\s(]+)\s*\(/;
-            var results = (funcNameRegex).exec((this).toString());
-            return (results && results.length > 1) ? results[1] : "";
-        },
-        set: function(value) {}
-    });
+  Object.defineProperty(Function.prototype, 'name', {
+    get: function() {
+      var funcNameRegex = /function\s+([^\s(]+)\s*\(/;
+      var results = (funcNameRegex).exec((this).toString());
+      return (results && results.length > 1)
+        ? results[1]
+        : "";
+    },
+    set: function(value) {}
+  });
 }
 
 export class Fmk {
@@ -27,7 +29,10 @@ export class Fmk {
     return _dispatcher;
   }
 
-  static act(action) {
+  static act(action = {
+    type: 'global'
+  }) {
+    console.log('Fmk act: '+JSON.stringify(action));
     _dispatcher.dispatch(action);
   }
 
@@ -46,14 +51,11 @@ export class Fmk {
     } else {
       store._iehacked = false;
     }
-    console.log(store.__className+' hacked? '+store._iehacked);
+    console.log(store.__className + ' hacked? ' + store._iehacked);
     return store;
   }
 
-  static store(storeClass, singleton) {
-    if (singleton === undefined) {
-      singleton = true;
-    }
+  static store(storeClass, singleton = true) {
     if (singleton) {
       if (!(_stores[storeClass.name])) {
         let sto = Fmk.iehack(new storeClass(_dispatcher));

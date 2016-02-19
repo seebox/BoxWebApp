@@ -5,49 +5,45 @@ export class FmkCtl extends Component {
 
   constructor(props) {
     super(props);
-    this.initialState=this.initialState.bind(this);
-    if(this.onShow){
-      this.onShow=this.onShow.bind(this);
+    if (this.onShow) {
+      this.onShow = this.onShow.bind(this);
     }
-  }
-
-  initialState() {
-    let state = {};
-    for (let k in this.stores) {
-      state[k] = this.stores[k].getInitialState();
-    }
-    return state;
+    this.state = {};
+    this.listeners = [];
   }
 
   componentDidMount() {
-    if (typeof this.getStores === "function") {
-      this.stores = this.getStores();
-    } else {
-      throw new TypeError("Controller Class [" + this.constructor.name + "] Must override method: getStores(){...}");
-    }
-    this.state = this.initialState();
-    if (this.stores) {
-      this.listeners = [];
-      for (let k in this.stores) {
-        let fn = '$' + k + '_changed';
-        if (typeof this[fn] === 'function') {
-          this[fn] = this[fn].bind(this, this.stores[k]);
-          this.listeners.push(this.stores[k].addListener(this[fn]));
+    console.log('FmkCtl componentDidMount');
+    if (typeof this.bindStoreEvent === "function") {
+      this.bindStoreEvent(function(store, listener) {
+        if (listener === undefined) {
+          listener = function(newStore) {
+            this.setState(function(previousState, currentProps) {
+              let newState = {};
+              newState[newStore.constructor.name] = newStore.getState();
+              return newState;
+            });
+          }.bind(this);
         }
-      }
+        listener = listener.bind(this, store);
+        this.listeners.push(store.addListener(listener));
+        this.state[store.constructor.name] = store.getInitialState();
+      }.bind(this));
+    } else {
+      throw new TypeError("Controller Class [" + this.constructor.name + "] Must override method: bindStoreEvent(binder){...}");
     }
+
     if (typeof this.onShow === "function") {
       this.onShow();
     }
   }
 
   componentWillUnmount() {
-    if (this.stores) {
+    if (this.listeners) {
       for (let k in this.listeners) {
         this.listeners[k].remove();
       }
       this.listeners = null;
-      this.stores = null;
     }
     if (typeof this.onExit === "function") {
       this.onExit();
@@ -57,4 +53,4 @@ export class FmkCtl extends Component {
 
 FmkCtl.prototype.state = {};
 FmkCtl.prototype.props = {};
-FmkCtl.prototype.stores = {};
+FmkCtl.prototype.listeners = [];

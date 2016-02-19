@@ -5,9 +5,7 @@ import {FmkCtl} from 'components/FmkCtl';
 import {App} from 'pages/App';
 
 export class AppCtl extends FmkCtl {
-  getStores(){
-    return {};
-  }
+  bindStoreEvent(binder) {}
 
   iconClick(nav, e) {
     e.preventDefault();

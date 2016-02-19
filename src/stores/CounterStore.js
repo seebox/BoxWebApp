@@ -14,9 +14,14 @@ export class CounterStore extends FmkStore {
     };
   }
 
-  $news$enter(state, action) {
+  $global(state, action) {
     state.count++;
+    console.log('CounterStore: global action');
     return state;
+  }
+
+  bindViewAction(){
+    
   }
 
   $news$cheat(state, action) {

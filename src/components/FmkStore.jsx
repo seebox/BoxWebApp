@@ -9,6 +9,7 @@ export class FmkStore extends ReduceStore {
       throw new TypeError("Store Class [" + this.constructor.name + "] Must override method: getInitialState(){...}");
     }
     this.changeState = this.changeState.bind(this);
+    // this.reduce = this.reduce.bind(this);
   }
 
   changeState(newState) {
@@ -19,17 +20,16 @@ export class FmkStore extends ReduceStore {
   }
 
   //响应action，执行数据操作
-  reduce(state, action) {
+  reduce(startingState, action) {
     if (typeof this['$' + action.type] === "function") {
       let fn = '$' + action.type;
-      let retval = this[fn](state, action);
-      if (retval !== undefined) {
+      let endingState = this[fn](startingState, action);
+      if (endingState !== undefined) {
         return {
-          ...retval
+          ...endingState
         };
       }
-    } else {
-      return state;
     }
+    return startingState;
   }
 }

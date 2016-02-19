@@ -14,9 +14,9 @@ export class NewsStore extends FmkStore {
     };
   }
 
-  $news$enter(state, action) {
+  $global(state, action) {
+    console.log('NewsStore: global action');
     this.loadNews();
-    return state;
   }
 
   loadNews() {
