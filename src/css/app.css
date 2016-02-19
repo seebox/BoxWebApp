@@ -1,0 +1,10 @@
+body {
+  text-align: center;
+}
+#app {
+  text-align: justify;
+}
+a:focus {
+  outline: none;
+  -moz-outline: none;
+}
