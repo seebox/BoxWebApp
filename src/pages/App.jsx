@@ -46,6 +46,10 @@ export class App extends Component {
                   每日一句</Link>
               </ListItem>
               <ListItem>
+                <Link to={'control_statement'}><Icon icon="tags"/>
+                  JSX Control Statement</Link>
+              </ListItem>
+              <ListItem>
                 <Link to={'about'}><Icon icon="lightbulb-o"/>
                   关于Demo</Link>
               </ListItem>

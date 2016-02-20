@@ -8,6 +8,7 @@ import {AppCtl} from 'ctls/AppCtl';
 import {Welcome} from 'pages/Welcome';
 import {NewsCtl} from 'ctls/NewsCtl';
 import {About} from 'pages/About';
+import {ControlStatement} from 'pages/ControlStatement';
 
 render((
   <Router history={Fmk.navi.history}>
@@ -15,6 +16,7 @@ render((
       <IndexRoute component={Welcome}/>
       <Route path="news" component={NewsCtl}/>
       <Route path="about" component={About}/>
+      <Route path="control_statement" component={ControlStatement}/>
       <Route path="*" component={Welcome}/>
     </Route>
   </Router>

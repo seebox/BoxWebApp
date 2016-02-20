@@ -79,3 +79,4 @@ npm start
 3. [React(中文)](http://reactjs.cn/react/docs/getting-started.html)
 4. [React Router](https://github.com/reactjs/react-router)
 5. [妹子UI](http://amazeui.org/react/components)
+6. [If else等控制标签的使用说明](https://www.npmjs.com/package/jsx-control-statements)

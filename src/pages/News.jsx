@@ -33,6 +33,7 @@ export class News extends Component {
         padding: 20
       }}>
         <blockquote>访问计数器：{this.props.counter.count}</blockquote>
+        
         <Panel header={header} footer={footer} style={{
           width: 500,
           margin: 20

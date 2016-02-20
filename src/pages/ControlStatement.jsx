@@ -4,17 +4,21 @@ import {Link} from 'react-router';
 import {Panel, Icon} from 'amazeui-react';
 import {Fmk} from 'components/Fmk';
 
-export class Tags extends Component {
+export class ControlStatement extends Component {
   render() {
     var panelHeader = (
-      <Icon icon="child">关于这个Demo</Icon>
+      <Icon icon="tags">扩展标签示例</Icon>
     );
     return (
       <Panel header={panelHeader} style={{
-        width: 500,
+        width: 800,
         margin: 20
       }}>
-        基于 React、Amaze UI 组件、Webpack（with 'React Hot Loader'）、react-router、Facebook官方Flux实现等开源前端技术开发。
+      <If condition={this.props.myCondition === 'maybe'}>
+        <span>IfBlock</span>
+      <Else />
+        <span>ElseBlock</span>
+      </If>
       </Panel>
     );
   }
