@@ -81,3 +81,4 @@ npm start
 5. [妹子UI](http://amazeui.org/react/components)
 6. [If else等控制标签的使用说明](https://www.npmjs.com/package/jsx-control-statements)
 7. [superagent(ajax)库使用教程（中文）](https://cnodejs.org/topic/5378720ed6e2d16149fa16bd)
+8. [N多React系列组件](https://js.coach/)
