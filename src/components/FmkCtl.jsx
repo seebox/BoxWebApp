@@ -2,17 +2,14 @@ import React, {Component} from 'react';
 import {Fmk} from 'components/Fmk';
 
 export class FmkCtl extends Component {
-
-  constructor(props) {
-    super(props);
+  componentWillMount() {
     if (this.onShow) {
       this.onShow = this.onShow.bind(this);
     }
-    this.state = {};
-    this.listeners = [];
-  }
+    if (this.onExit) {
+      this.onExit = this.onExit.bind(this);
+    }
 
-  componentDidMount() {
     let defaultListenerFn = function(store) {
       this.setState(function(previousState, currentProps) {
         let newState = {};
@@ -28,7 +25,7 @@ export class FmkCtl extends Component {
           listener = defaultListenerFn;
         }
         this.listeners.push(store.addListener(listener.bind(this, store)));
-        this.state[store.bindingName] = store.getInitialState();
+        this.state[store.bindingName] = store.getState();
       }.bind(this));
     } else {
       throw new TypeError("Controller Class [" + this.constructor.name + "] Must override method: bindStoreEvent(binder){...}");

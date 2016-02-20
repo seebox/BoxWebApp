@@ -16,11 +16,19 @@ export class NewsCtl extends FmkCtl {
   onExit() {}
 
   render() {
-    return (<News counter={this.state.counter} news={this.state.news}/>);
+    return (<News counter={this.state.counter} news={this.state.news} handlePrevious={this.handlePrevious} handleNext={this.handleNext}/>);
   }
 
   bindStoreEvent(binder) {
     binder('news', Fmk.store(NewsStore));
     binder('counter', Fmk.store(CounterStore));
+  }
+
+  handlePrevious=(e)=>{
+    Fmk.act({type:'news$previous'});
+  }
+
+  handleNext=(e)=>{
+    Fmk.act({type:'news$next'});
   }
 }

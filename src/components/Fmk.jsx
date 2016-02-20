@@ -18,6 +18,15 @@ if (Function.prototype.name === undefined && Object.defineProperty !== undefined
 }
 
 export class Fmk {
+  static autobind(target){
+    for (let m in target) {
+      if (typeof target[m] === 'function') {
+        target[m] = target[m].bind(target);
+      }
+    }
+    return target;
+  }
+
   static get navi() {
     return Navi;
   }
