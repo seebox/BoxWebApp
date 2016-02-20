@@ -1,7 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
 import {Link} from 'react-router';
-import {Icon, Panel, AvgGrid, Button} from 'amazeui-react';
+import {Icon, Panel, AvgGrid, Button, Input} from 'amazeui-react';
 import {Fmk} from 'components/Fmk';
 
 export class News extends Component {
@@ -28,16 +28,23 @@ export class News extends Component {
       </AvgGrid>
     );
 
+    let myStyle={
+      width: 500,
+      margin: 20
+    };
+
     return (
       <div style={{
         padding: 20
       }}>
-        <blockquote>访问计数器：{this.props.counter.count}</blockquote>
-        
-        <Panel header={header} footer={footer} style={{
-          width: 500,
-          margin: 20
-        }}>
+        <blockquote style={myStyle}>
+          <AvgGrid sm={3}>
+            <li>访问计数器：{this.props.counter.count}</li>
+            <li><Input type="checkbox" label="开挂" onChange={this.props.cheatHandler}/></li>
+            <li style={{display:this.props.cheatEnabled?'':'none'}}><Input type="text" placeholder="加几倍呢？你说了算" onChange={this.props.cheatHandler}/></li>
+          </AvgGrid>
+        </blockquote>
+        <Panel header={header} footer={footer} style={myStyle}>
           <blockquote>
             <p>{this.props.news.content}</p>
             <p>{this.props.news.note}</p>

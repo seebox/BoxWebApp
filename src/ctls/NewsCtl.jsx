@@ -16,7 +16,7 @@ export class NewsCtl extends FmkCtl {
   onExit() {}
 
   render() {
-    return (<News counter={this.state.counter} news={this.state.news} handlePrevious={this.handlePrevious} handleNext={this.handleNext}/>);
+    return (<News cheatHandler={this.cheatHandler} cheatEnabled={this.state.cheatEnabled} counter={this.state.counter} news={this.state.news} handlePrevious={this.handlePrevious} handleNext={this.handleNext}/>);
   }
 
   bindStoreEvent(binder) {
@@ -24,11 +24,22 @@ export class NewsCtl extends FmkCtl {
     binder('counter', Fmk.store(CounterStore));
   }
 
-  handlePrevious=(e)=>{
-    Fmk.act({type:'news$previous'});
+  handlePrevious = (e) => {
+    Fmk.act({type: 'news$previous'});
   }
 
-  handleNext=(e)=>{
-    Fmk.act({type:'news$next'});
+  handleNext = (e) => {
+    Fmk.act({type: 'news$next'});
+  }
+
+  cheatHandler = (e) => {
+    if (e.target.type === 'checkbox') {
+      this.setState({cheatEnabled: e.target.checked});
+    } else if (e.target.type === 'text') {
+      let n = Number.parseInt(e.target.value);
+      if (n) {
+        Fmk.act({type: 'news$cheat', times: n});
+      }
+    }
   }
 }
