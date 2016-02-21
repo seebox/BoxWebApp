@@ -14,7 +14,7 @@ class Clock extends Component {
     );
     return (
       <Panel header={panelHeader} style={this.props.style}>
-        <a onClick={this.props.stopReload}>reload</a>
+        <a onClick={this.props.reload}>reload</a><br/>
         <a onClick={this.props.stopHandler}>stop</a>
         <h1>{this.props.clock.time}</h1>
         <p>
@@ -79,7 +79,7 @@ export class ClockCtl extends FmkCtl {
 
   render() {
     return (
-      <Clock clock={this.state.clock} style={this.props.style} stopHandler={this.stop} stopReload={this.reload}>
+      <Clock clock={this.state.clock} style={this.props.style} stopHandler={this.stop} reload={this.reload}>
         {this.props.children}
       </Clock>
     );
