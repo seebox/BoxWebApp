@@ -14,6 +14,8 @@ class Clock extends Component {
     );
     return (
       <Panel header={panelHeader} style={this.props.style}>
+        <a onClick={this.props.stopReload}>reload</a>
+        <a onClick={this.props.stopHandler}>stop</a>
         <h1>{this.props.clock.time}</h1>
         <p>
           {this.props.children}
@@ -43,6 +45,13 @@ class ClockStore extends FmkStore {
     clearInterval(this.getState().id);
     console.log('clock stopped.');
   }
+
+  $clock$reload = (startingState, action) => {
+    console.log('clock$reload');
+    let ns = this.getState();
+    ns.time = moment().format('YYYY-MM-DD HH:mm:ss');
+    return ns;
+  }
 }
 
 export class ClockCtl extends FmkCtl {
@@ -59,12 +68,20 @@ export class ClockCtl extends FmkCtl {
     this.clock.end();
   }
 
+  stop = () =>{
+    this.onExit();
+  }
+
+  reload = () =>{
+    console.log("Fmk.act({type:'clock$reload'});");
+    Fmk.act({type:'clock$reload'});
+  }
+
   render() {
-    if(this.state.clock === undefined){
-      console.log('this.state.clock!!!!undefined!!!!!!');
-    }
     return (
-      <Clock clock={this.state.clock} style={this.props.style}>{this.props.children}</Clock>
+      <Clock clock={this.state.clock} style={this.props.style} stopHandler={this.stop} stopReload={this.reload}>
+        {this.props.children}
+      </Clock>
     );
   }
 }

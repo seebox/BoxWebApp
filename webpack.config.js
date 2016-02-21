@@ -11,6 +11,7 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
+    // new webpack.optimize.DedupePlugin(),
     // keeps hashes consistent between compilations
     new webpack.optimize.OccurenceOrderPlugin(),
     // minifies your code
