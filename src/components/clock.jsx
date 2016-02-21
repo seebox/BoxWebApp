@@ -49,7 +49,7 @@ class ClockStore extends FmkStore {
   $clock$reload = (startingState, action) => {
     console.log('clock$reload');
     startingState.time = moment().format('YYYY-MM-DD HH:mm:ss');
-    return ns;
+    return startingState;
   }
 }
 
