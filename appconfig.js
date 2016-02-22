@@ -11,7 +11,8 @@ module.exports = {
     defaultPort: 3000,
     apiHost: 'open.iciba.com',
     apiAddress: 'http://open.iciba.com:80/',
-    apiBashPath: '/dsapi/*'
+    apiBashPath: '/dsapi/*',
+    gatewayHost: 'Teedys-MacBook-Pro.local'
   },
   alias: {
     'AppCss': path.resolve(__dirname, 'src/css/app')
@@ -24,7 +25,8 @@ module.exports = {
     var server = {
       hostname: hostname,
       port: this.defaultDevServer.defaultPort,
-      ip: null
+      ip: null,
+      gatewayHost: this.defaultDevServer.gatewayHost
     };
     for (var k in interfaces) {
       for (var k2 in interfaces[k]) {

@@ -7,8 +7,9 @@ var devServer = app_config.getDevServer();
 
 var compiler = webpack(config);
 console.log('Starting Webpack Dev Server....');
-
+var cmdport = Number.isInteger(Number.parseInt(process.argv[3]))?process.argv[3]:(Number.isInteger(Number.parseInt(process.argv[2]))?process.argv[2]:devServer.port);
 var proxyCfg = {};
+
 proxyCfg[app_config.defaultDevServer.apiBashPath] = {
   target: app_config.defaultDevServer.apiAddress,
   secure: false,
@@ -25,11 +26,11 @@ var devServerInstance = new WebpackDevServer(compiler, {
   historyApiFallback: true,
   proxy: proxyCfg
 });
-devServerInstance.listen(devServer.port, '0.0.0.0', function(err, result) {
+devServerInstance.listen(cmdport, '0.0.0.0', function(err, result) {
   if (err) {
     console.log(err);
   }
 
-  console.log('Listening at ' + devServer.hostname + ':' + devServer.port);
-  console.log('Access address: http://' + devServer.ip + ':' + devServer.port);
+  console.log('Listening at ' + devServer.hostname + ':' + cmdport);
+  console.log('Access address: http://' + devServer.ip + ':' + cmdport);
 });

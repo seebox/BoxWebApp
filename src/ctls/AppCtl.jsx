@@ -4,7 +4,7 @@ import {Fmk} from 'components/Fmk';
 import {FmkCtl} from 'components/FmkCtl';
 import {App} from 'pages/App';
 
-export class AppCtl extends FmkCtl {
+export default class AppCtl extends FmkCtl {
   bindStoreEvent(binder) {}
 
   iconClick(nav, e) {

@@ -3,7 +3,10 @@ var webpack = require('webpack');
 var app_config = require('./appconfig.js');
 
 var devServer = app_config.getDevServer();
-var entries = ['webpack-dev-server/client?http://' + devServer.ip + ':' + devServer.port,
+
+console.log((devServer.gatewayHost?devServer.gatewayHost:devServer.ip));
+
+var entries = ['webpack-dev-server/client?http://' + (devServer.gatewayHost?devServer.gatewayHost:devServer.ip) + ':' + devServer.port,
   'webpack/hot/only-dev-server'
 ];
 

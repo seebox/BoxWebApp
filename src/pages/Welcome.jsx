@@ -7,7 +7,7 @@ import {
 import {Fmk} from 'components/Fmk';
 import {ClockCtl} from 'components/clock';
 
-export class Welcome extends Component {
+export default class Welcome extends Component {
   render() {
     return (
       <Panel header="Welcome" style={{

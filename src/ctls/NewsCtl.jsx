@@ -7,7 +7,7 @@ import {News} from 'pages/News';
 import {NewsStore} from 'stores/NewsStore';
 import {CounterStore} from 'stores/CounterStore';
 
-export class NewsCtl extends FmkCtl {
+export default class NewsCtl extends FmkCtl {
   onShow() {
     //fire global (re)loading action
     Fmk.act();
